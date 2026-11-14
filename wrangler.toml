@@ -12,11 +12,11 @@ pages_build_output_dir = "."
 # then paste the returned IDs below.
 [[kv_namespaces]]
 binding = "ORDERS"
-id = "REPLACE_WITH_ORDERS_KV_ID"
+id = "729d9993d708445ba46832039e843f42"
 
 [[kv_namespaces]]
 binding = "FILES"
-id = "REPLACE_WITH_FILES_KV_ID"
+id = "fa157ffd3eed438eae9cab44cd35e6b9"
 
 [vars]
 # "sandbox" while testing, "live" when you go live
