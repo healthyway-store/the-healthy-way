@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Healthy Way — Digital Health & Wellness eBooks</title>
+  <meta name="description" content="Practical health and wellness eBooks. Instant PDF downloads. Pay with card, EFT or SnapScan via PayFast." />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">
+      <span class="brand-leaf">🌿</span> The Healthy Way
+    </a>
+    <nav>
+      <a href="#products">eBooks</a>
+      <a href="#about">About</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1>Feel better, one page at a time.</h1>
+      <p>
+        Practical, no-nonsense health &amp; wellness guides you can download instantly.
+        Pay securely with your card, EFT or SnapScan.
+      </p>
+      <a href="#products" class="btn btn-primary">Browse eBooks</a>
+      <p class="hero-note">Instant PDF delivery &middot; Secure checkout via PayFast</p>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <h2>Our eBooks</h2>
+    <div id="product-grid" class="product-grid">
+      <!-- Products are rendered here by app.js -->
+    </div>
+  </section>
+
+  <section id="about" class="section section-alt">
+    <h2>About The Healthy Way</h2>
+    <p>
+      We believe healthy living shouldn't be complicated or expensive. Our guides are
+      written to be practical and easy to follow — real food, real movement, real results.
+      Every purchase comes as a high-quality PDF you can read on any device.
+    </p>
+  </section>
+
+  <section id="faq" class="section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq">
+      <details>
+        <summary>How do I receive my eBook?</summary>
+        <p>Right after payment you're taken to a download page. Your link is secure and stays valid for 30 days.</p>
+      </details>
+      <details>
+        <summary>What payment methods can I use?</summary>
+        <p>Credit &amp; cheque cards, Instant EFT, SnapScan and more — all handled securely by PayFast. We never see your card details.</p>
+      </details>
+      <details>
+        <summary>Can I read it on my phone?</summary>
+        <p>Yes. All eBooks are standard PDFs that open on phones, tablets and computers.</p>
+      </details>
+      <details>
+        <summary>Do you offer refunds?</summary>
+        <p>Because these are instant digital products, all sales are final. If you have a problem with your download, contact us and we'll make it right.</p>
+      </details>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="year"></span> The Healthy Way. All rights reserved.</p>
+    <p class="footer-small">Payments secured by <strong>PayFast</strong></p>
+  </footer>
+
+  <!-- Checkout modal -->
+  <div id="checkout-modal" class="modal" hidden>
+    <div class="modal-card">
+      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+      <h3 id="modal-title">Checkout</h3>
+      <form id="checkout-form">
+        <label>First name
+          <input type="text" name="first_name" required autocomplete="given-name" />
+        </label>
+        <label>Last name
+          <input type="text" name="last_name" required autocomplete="family-name" />
+        </label>
+        <label>Email (your eBook is delivered here)
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <button type="submit" class="btn btn-primary btn-block" id="pay-btn">Proceed to secure payment</button>
+        <p id="checkout-error" class="error" hidden></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

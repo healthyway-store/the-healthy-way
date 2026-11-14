@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thank you — The Healthy Way</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/"><span class="brand-leaf">🌿</span> The Healthy Way</a>
+    <nav><a href="/">← Back to store</a></nav>
+  </header>
+
+  <section class="hero" style="min-height: 55vh;">
+    <div class="hero-inner">
+      <div id="pending" style="display: none;">
+        <div style="font-size: 2.5rem;">⏳</div>
+        <h1>Confirming your payment…</h1>
+        <p>This usually takes a few seconds. Please keep this page open.</p>
+        <p class="hero-note">If you stay on this page, your download will appear automatically.</p>
+      </div>
+
+      <div id="done" style="display: none;">
+        <div style="font-size: 2.5rem;">🎉</div>
+        <h1>Payment received — thank you!</h1>
+        <p id="done-product">Your eBook is ready.</p>
+        <a id="download-btn" class="btn btn-primary" href="#" download>⬇ Download your eBook</a>
+        <p class="hero-note">Your personal download link stays valid for 30 days.<br />
+        Tip: save this page to your bookmarks.</p>
+      </div>
+
+      <div id="failed" style="display: none;">
+        <div style="font-size: 2.5rem;">🙁</div>
+        <h1>Something went wrong</h1>
+        <p>We couldn't confirm your payment automatically. If money left your account, don't worry — email us your payment reference and we'll send your eBook manually.</p>
+        <a href="/" class="btn btn-primary">Back to store</a>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var ref = params.get("ref");
+      var cancelled = params.get("cancelled");
+      var pendingEl = document.getElementById("pending");
+      var doneEl = document.getElementById("done");
+      var failedEl = document.getElementById("failed");
+      var attempts = 0;
+
+      if (cancelled) {
+        failedEl.querySelector("h1").textContent = "Payment cancelled";
+        failedEl.querySelector("p").textContent =
+          "No payment was made. You can pick any eBook from the store whenever you're ready.";
+        return show(failedEl);
+      }
+
+      if (!ref) return show(failedEl);
+      show(pendingEl);
+      poll();
+
+      function poll() {
+        if (attempts++ > 40) { show(failedEl); return; }
+        fetch("/api/order?ref=" + encodeURIComponent(ref))
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data.status === "COMPLETE" && data.downloadUrl) return done(data);
+            setTimeout(poll, 3000); // check again every 3s
+          })
+          .catch(function () { setTimeout(poll, 4000); });
+      }
+
+      function done(data) {
+        document.getElementById("done-product").textContent =
+          data.product + " is ready to download." +
+          (data.email ? " A copy of your receipt goes to " + data.email + "." : "");
+        var btn = document.getElementById("download-btn");
+        btn.href = data.downloadUrl;
+        show(doneEl);
+      }
+
+      function show(el) {
+        pendingEl.style.display = "none";
+        doneEl.style.display = "none";
+        failedEl.style.display = "none";
+        el.style.display = "block";
+      }
+    })();
+  </script>
+</body>
+</html>

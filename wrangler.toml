@@ -1,0 +1,29 @@
+# Cloudflare Pages configuration
+# Docs: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+
+name = "the-healthy-way"
+compatibility_date = "2024-09-01"
+pages_build_output_dir = "."
+
+# KV namespaces that hold (a) confirmed orders and (b) your private PDF files.
+# Create them with:
+#   npx wrangler kv namespace create ORDERS
+#   npx wrangler kv namespace create FILES
+# then paste the returned IDs below.
+[[kv_namespaces]]
+binding = "ORDERS"
+id = "REPLACE_WITH_ORDERS_KV_ID"
+
+[[kv_namespaces]]
+binding = "FILES"
+id = "REPLACE_WITH_FILES_KV_ID"
+
+[vars]
+# "sandbox" while testing, "live" when you go live
+PAYFAST_MODE = "sandbox"
+
+# Secrets — set these with the dashboard or CLI, do NOT put them here:
+#   npx wrangler pages secret put PAYFAST_MERCHANT_ID
+#   npx wrangler pages secret put PAYFAST_MERCHANT_KEY
+#   npx wrangler pages secret put PAYFAST_PASSPHRASE
+#   npx wrangler pages secret put DOWNLOAD_SECRET   (any long random string)
